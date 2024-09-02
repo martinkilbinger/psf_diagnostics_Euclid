@@ -11,6 +11,7 @@ cs_util = "0.1.0"
 shear_psf_leakage = "^0.2"
 numpy = ">=1.26.4,<2.0.0"
 matplotlib = "^3.9.2"
+tensorflow = "^2.17.0"
 
 
 [build-system]
