@@ -72,16 +72,23 @@ filenames = []
 colors = []
 patches = []
 
+input = "../data/test/Euclid_rho_input.fits"
 path = f"rho_stats_id.fits"
 if os.path.exists(f"{obj._params['in_dir_base']}/{path}"):
     print(f"Reading rho stats {obj._params['in_dir_base']}/{path}...")
     rho_stat_handler.load_rho_stats(path)
     filenames.append(path) 
-    colors.append(col[patch])
+    colors.append('blue')
+    patches.append('test_euclid') #Hardcoded for now
 else:
     print(
-        f"File rho stats {obj._params['in_dir_base']}/{path} not found, skipping.."
+        f"File rho stats {obj._params['in_dir_base']}/{path} not found, computing the rho_stats..."
     )
+    rho_stat_handler.build_cat_to_compute_rho(input, catalog_id='test_euclid', square_size=True)
+    rho_stat_handler.compute_rho_stats('test_euclid', filename=path)
+    filenames.append(path)
+    colors.append('blue') #Hardcoded for now
+    patches.append('test_euclid') #Same here
 # -
 
 # Create plot                                                                   
@@ -89,7 +96,7 @@ rho_stat_handler.plot_rho_stats(
     filenames,                                                                  
     colors,                                                                     
     patches,                                                                   
-    abs=False,                                                                  
+    abs=True,                                                                  
     savefig='rho_stats.png',                                                    
     legend="outside",
 )
